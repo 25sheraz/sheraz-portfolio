@@ -605,14 +605,26 @@ html.has-cursor .cursor.is-visible {
 .nav__logo {
   font-family: var(--font-head);
   font-weight: 700;
-  font-size: 1.3rem;
-  letter-spacing: -0.03em;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 8px;
   position: relative;
   z-index: 3;
+  white-space: nowrap;
+  color: #ffffff; /* white on the default dark theme */
+}
+
+:root[data-theme='light'] .nav__logo {
+  color: var(--text); /* dark on the light theme */
+}
+
+@media (max-width: 480px) {
+  .nav__logo {
+    font-size: 1.05rem;
+  }
 }
 
 .nav__logo i {

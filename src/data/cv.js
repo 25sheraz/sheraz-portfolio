@@ -158,6 +158,29 @@ export const projects = [
     ],
   },
   {
+    id: 'develmo-rag',
+    title: 'DevelMO AI Knowledge Assistant',
+    subtitle: 'Dual-vector hybrid RAG chatbot with reranking and session memory',
+    client: 'DevelMO',
+    category: 'genai',
+    description:
+      "An enterprise RAG assistant grounded in DevelMO's knowledge base. Dense embeddings and sparse BM25 run side by side in Qdrant and are merged with Reciprocal Rank Fusion, then a cross-encoder reranks the candidates before the LLM answers. Redis keeps multi-turn session memory and rewrites follow-up questions into standalone queries. Ships as a FastAPI server, an embeddable React chat widget with source citations, and a CLI.",
+    metric: 'Hybrid search + reranking · answers with source citations',
+    tech: ['Python', 'FastAPI', 'Qdrant', 'BM25 + dense vectors', 'Cross-encoder reranking', 'Redis', 'React', 'TypeScript'],
+    links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/DevelMO' }],
+  },
+  {
+    id: 'knowledge-rag-docs',
+    title: 'Knowledge RAG + Document Manager',
+    subtitle: 'Upload PDFs and chat with them, with full document lifecycle',
+    category: 'genai',
+    description:
+      'The same hybrid RAG engine extended with a dynamic document-management layer: upload, list, inspect and delete PDFs through a REST API, with SHA-256 duplicate detection and automatic clean-up of the matching Qdrant vectors. Includes a React drag-and-drop uploader, document tabs and a floating knowledge chat widget, all sharing one ingestion pipeline with the batch CLI.',
+    metric: 'Live PDF ingestion · duplicate detection · vector clean-up on delete',
+    tech: ['Python', 'FastAPI', 'Qdrant', 'Hybrid search', 'Redis', 'React', 'TypeScript', 'PDF ingestion'],
+    links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/PDF-Uploader-' }],
+  },
+  {
     id: 'foodmate',
     title: 'FoodMate',
     subtitle: 'AI meal & nutrition analysis backend',
@@ -239,4 +262,5 @@ export const skills = [
 export const education = [
   { school: 'The University of Faisalabad', degree: 'BS Software Engineering', period: '2022 – 2026', result: 'CGPA 3.61 / 4.00' },
   { school: 'Punjab Group of Colleges', degree: 'Intermediate (Pre-Engineering)', period: '2020 – 2022', result: '87%' },
+  { school: 'Usama Bin Zaid Public High School', degree: 'Matriculation', period: '2018 – 2020', result: '82%' },
 ];
