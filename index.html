@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Sheraz Ahmad · AI Engineer</title>
+    <meta
+      name="description"
+      content="Sheraz Ahmad is an AI engineer in Lahore, Pakistan who builds WhatsApp chatbots, LangGraph agents, RAG pipelines, AI voice agents and computer vision systems for real businesses."
+    />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#070b14" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sheraz Ahmad · AI Engineer" />
+    <meta
+      property="og:description"
+      content="AI automation, WhatsApp chatbots, generative AI and agentic systems that run real businesses."
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+        document.documentElement.classList.add('js');
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="loader" id="loader">
+      <div class="loader__mark">SA</div>
+      <div class="loader__bar"><span id="loader-bar"></span></div>
+      <div class="loader__text"><span id="loader-count">0</span>% · waking the agents</div>
+    </div>
+
+    <canvas id="scene" class="scene" aria-hidden="true"></canvas>
+    <div class="scene-overlay" aria-hidden="true"></div>
+    <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+    <div class="cursor" id="cursor" aria-hidden="true">
+      <span class="cursor__dot"></span>
+      <span class="cursor__ring"></span>
+    </div>
+
+    <a class="skip-link" href="#about">Skip to content</a>
+
+    <header class="nav" id="nav">
+      <div class="container nav__inner">
+        <a class="nav__logo" href="#hero" aria-label="Sheraz Ahmad, back to top"><span>SA</span><i></i></a>
+        <nav class="nav__links" id="nav-links" aria-label="Primary">
+          <a href="#about" data-nav="about">About</a>
+          <a href="#experience" data-nav="experience">Experience</a>
+          <a href="#projects" data-nav="projects">Projects</a>
+          <a href="#skills" data-nav="skills">Skills</a>
+          <a href="#contact" data-nav="contact">Contact</a>
+          <a class="btn btn--ghost btn--small nav__cv" href="Sheraz_Ahmad_CV.pdf" data-cv download>Download CV</a>
+        </nav>
+        <div class="nav__actions">
+          <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to light theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+            </svg>
+          </button>
+          <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Hero -->
+      <section class="hero section" id="hero" data-scene="hero">
+        <div class="container hero__inner">
+          <p class="eyebrow" data-reveal>
+            <span class="eyebrow__dot"></span>AI Engineer<span class="hide-sm"> · Lahore, Pakistan</span> · Open to work
+          </p>
+          <h1 class="hero__title" data-reveal>I build <span class="grad">AI systems</span> that run real businesses.</h1>
+          <p class="hero__roles" data-reveal>
+            <span class="sr-only">I ship WhatsApp chatbots, LangGraph agents, RAG pipelines, AI voice agents, CRM automations and computer vision systems.</span>
+            <span aria-hidden="true">I ship <span class="type" id="typewriter"></span><span class="caret"></span></span>
+          </p>
+          <p class="hero__sub" id="hero-intro" data-reveal></p>
+          <div class="hero__cta" data-reveal>
+            <a class="btn btn--primary" href="#projects">
+              See my work
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+            </a>
+            <a class="btn btn--ghost" href="Sheraz_Ahmad_CV.pdf" data-cv download>Download CV</a>
+          </div>
+          <div class="stats" id="stats"></div>
+        </div>
+        <a class="scroll-hint" href="#about" aria-label="Scroll to the about section"><span></span></a>
+      </section>
+
+      <!-- About -->
+      <section class="section about" id="about" data-scene="about">
+        <div class="container about__grid">
+          <div class="about__aside" data-reveal>
+            <div class="avatar tilt" id="avatar"></div>
+          </div>
+          <div class="about__body">
+            <div class="section__head" data-reveal>
+              <p class="eyebrow">About</p>
+              <h2 class="section__title">Engineer first, <span class="grad">AI</span> second.</h2>
+            </div>
+            <div class="prose" id="about-text" data-reveal></div>
+            <h3 class="subhead" data-reveal>What I do</h3>
+            <div class="services" id="what-i-do"></div>
+            <h3 class="subhead" data-reveal>Education</h3>
+            <div class="edu" id="education"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section class="section exp" id="experience" data-scene="experience">
+        <div class="container exp__grid">
+          <div class="exp__intro">
+            <div class="section__head" data-reveal>
+              <p class="eyebrow">Experience</p>
+              <h2 class="section__title">Three teams, <span class="grad">measurable</span> results.</h2>
+              <p class="section__lead">Every role is listed with the number that mattered most to the business.</p>
+            </div>
+          </div>
+          <div class="tl" id="timeline"></div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="section projects" id="projects" data-scene="projects">
+        <div class="container">
+          <div class="section__head" data-reveal>
+            <p class="eyebrow">Projects</p>
+            <h2 class="section__title">Shipped, deployed, <span class="grad">in use</span>.</h2>
+            <p class="section__lead">Hover or tap a card to light up its cluster in the network behind.</p>
+          </div>
+          <div class="projects__filters" id="project-filters" role="group" aria-label="Filter projects"></div>
+          <div class="projects__grid" id="project-grid"></div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="section skills" id="skills" data-scene="skills">
+        <div class="container">
+          <div class="section__head" data-reveal>
+            <p class="eyebrow">Skills</p>
+            <h2 class="section__title">The <span class="grad">stack</span> behind the systems.</h2>
+            <p class="section__lead">Five rings in the network, one for each layer. Hover a card to find its ring.</p>
+          </div>
+          <div class="skills__grid" id="skills-grid"></div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section contact" id="contact" data-scene="contact">
+        <div class="container contact__inner">
+          <p class="eyebrow eyebrow--center" data-reveal>Contact</p>
+          <h2 class="contact__title" data-reveal>Let's build something that <span class="grad">actually ships</span>.</h2>
+          <p class="section__lead contact__lead" data-reveal>
+            Based in Lahore, working remotely with clients in Pakistan, the UAE and beyond. Email is fastest; WhatsApp works too.
+          </p>
+          <div class="contact__grid" id="contact-links"></div>
+          <div class="contact__cta" data-reveal>
+            <a class="btn btn--primary" href="Sheraz_Ahmad_CV.pdf" data-cv download>Download CV</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p>© <span data-year>2026</span> Sheraz Ahmad</p>
+        <p>Built with Three.js, GSAP and Vite</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

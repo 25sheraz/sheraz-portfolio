@@ -1,0 +1,22 @@
+{
+  "name": "sheraz-portfolio",
+  "version": "1.0.0",
+  "description": "Interactive 3D portfolio of Sheraz Ahmad, AI Engineer",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.21"
+  },
+  "private": true,
+  "type": "module"
+}
