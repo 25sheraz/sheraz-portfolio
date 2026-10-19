@@ -38,7 +38,8 @@ export function initTheme(onChange) {
     if (btn) btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
     if (persist) {
       try {
-        localStorage.setItem('theme', t);
+        // Session-only: a fresh visit always starts in dark mode.
+        sessionStorage.setItem('theme', t);
       } catch {
         /* storage unavailable */
       }

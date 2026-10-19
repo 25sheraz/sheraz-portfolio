@@ -213,60 +213,8 @@ main,
 }
 
 /* =========================================================
-   Loader
+   Loader: styled inline in index.html so it renders before this file loads.
    ========================================================= */
-.loader {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: var(--bg);
-  display: grid;
-  place-content: center;
-  gap: 18px;
-  text-align: center;
-  transition: opacity 0.6s var(--ease), visibility 0.6s;
-}
-
-.loader.is-done {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.loader__mark {
-  font-family: var(--font-head);
-  font-size: 2.6rem;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.loader__bar {
-  width: min(240px, 60vw);
-  height: 2px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-inline: auto;
-}
-
-.loader__bar span {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-}
-
-.loader__text {
-  font-family: var(--font-head);
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
 
 /* =========================================================
    Cursor (desktop only)

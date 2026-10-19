@@ -86,7 +86,7 @@ wireHighlights('skills-grid', 'data-ring', (r) => sceneApi?.highlightRing(r));
 // Reveal the page once the scene has drawn and fonts are in.
 const fontsReady = document.fonts?.ready ?? Promise.resolve();
 const sceneReady = sceneApi ? sceneApi.ready : Promise.resolve();
-const minShow = new Promise((r) => setTimeout(r, 900));
+const minShow = new Promise((r) => setTimeout(r, 1600));
 
 Promise.all([sceneReady, fontsReady, minShow])
   .catch(() => {})

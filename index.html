@@ -23,10 +23,55 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <!-- Critical styles: inline so the first paint is dark and the loader works before any bundle loads -->
+    <style>
+      html { background: #070b14; }
+      .loader { position: fixed; inset: 0; z-index: 100; background: #070b14; color: #e9eef7; display: grid; place-items: center; overflow: hidden; clip-path: circle(75% at 50% 50%); transition: clip-path 0.9s cubic-bezier(0.7, 0, 0.2, 1), visibility 0.9s; font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif; }
+      .loader.is-done { clip-path: circle(0% at 50% 50%); visibility: hidden; pointer-events: none; }
+      .loader__glow { position: absolute; width: 70vmin; height: 70vmin; border-radius: 50%; background: radial-gradient(circle, rgba(56, 225, 255, 0.18), rgba(139, 123, 255, 0.08) 45%, transparent 70%); filter: blur(10px); animation: ld-breathe 3s ease-in-out infinite; }
+      .loader__inner { position: relative; display: grid; justify-items: center; gap: 18px; transition: transform 0.9s cubic-bezier(0.7, 0, 0.2, 1), opacity 0.5s; }
+      .loader.is-done .loader__inner { transform: scale(0.85); opacity: 0; }
+      .loader__net { width: min(200px, 44vw); height: auto; overflow: visible; }
+      .loader__rot { transform-box: view-box; transform-origin: 120px 120px; animation: ld-spin 26s linear infinite; }
+      .loader__net line { stroke: rgba(56, 225, 255, 0.45); stroke-width: 1.2; stroke-dasharray: 200; stroke-dashoffset: 200; animation: ld-draw 1.1s cubic-bezier(0.2, 0.65, 0.2, 1) forwards; }
+      .loader__net .n { fill: #38e1ff; transform-box: fill-box; transform-origin: center; transform: scale(0); animation: ld-pop 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.4) forwards; }
+      .loader__net .n.alt { fill: #8b7bff; }
+      .loader__net .n.hot { fill: #ff6ad5; }
+      .loader__net .core { fill: #ffffff; filter: drop-shadow(0 0 8px #38e1ff); }
+      .loader__net .pulse { fill: #ffffff; filter: drop-shadow(0 0 6px #b8f4ff); opacity: 0; animation: ld-show 0.3s forwards; }
+      .loader.is-done .loader__glow { opacity: 0; transition: opacity 0.4s; }
+      .loader__name { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1; white-space: nowrap; background: linear-gradient(90deg, #38e1ff, #8b7bff 55%, #ff6ad5); -webkit-background-clip: text; background-clip: text; color: transparent; clip-path: inset(0 100% 0 0); animation: ld-wipe 1s cubic-bezier(0.2, 0.65, 0.2, 1) 0.35s forwards; }
+      .loader__status { display: flex; align-items: center; gap: 8px; font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #94a0b8; min-height: 1.2em; }
+      .loader__status::before { content: '>'; color: #38e1ff; }
+      .loader__caret { width: 7px; height: 0.95em; background: #38e1ff; animation: ld-blink 1s steps(2) infinite; }
+      .loader__bar { width: min(260px, 60vw); height: 2px; background: rgba(255, 255, 255, 0.1); border-radius: 2px; overflow: hidden; }
+      .loader__bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #38e1ff, #8b7bff); transition: width 0.15s linear; }
+      .loader__meta { display: flex; justify-content: space-between; width: min(260px, 60vw); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #5c6a85; }
+      .loader__meta b { color: #e9eef7; font-weight: 600; }
+      .loader__corner { position: absolute; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: #4a5872; font-family: ui-monospace, Consolas, monospace; }
+      .loader__corner--tl { top: 22px; left: 22px; }
+      .loader__corner--br { bottom: 22px; right: 22px; }
+      @keyframes ld-draw { to { stroke-dashoffset: 0; } }
+      @keyframes ld-pop { to { transform: scale(1); } }
+      @keyframes ld-wipe { to { clip-path: inset(0 0 0 0); } }
+      @keyframes ld-blink { to { opacity: 0; } }
+      @keyframes ld-show { to { opacity: 1; } }
+      @keyframes ld-breathe { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.12); opacity: 1; } }
+      @keyframes ld-spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) {
+        .loader * { animation: none !important; }
+        .loader__net line { stroke-dashoffset: 0; }
+        .loader__net .n { transform: none; }
+        .loader__name { clip-path: none; }
+        .loader { clip-path: none; transition: opacity 0.4s, visibility 0.4s; }
+        .loader.is-done { opacity: 0; }
+      }
+    </style>
     <script>
       (function () {
         try {
-          var t = localStorage.getItem('theme');
+          // Theme choice lasts for the browser session only, so every fresh visit starts dark.
+          var t = sessionStorage.getItem('theme');
           if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
         } catch (e) {}
         document.documentElement.classList.add('js');
@@ -34,10 +79,62 @@
     </script>
   </head>
   <body>
-    <div class="loader" id="loader">
-      <div class="loader__mark">SA</div>
-      <div class="loader__bar"><span id="loader-bar"></span></div>
-      <div class="loader__text"><span id="loader-count">0</span>% · waking the agents</div>
+    <div class="loader" id="loader" role="status" aria-label="Loading portfolio">
+      <div class="loader__glow" aria-hidden="true"></div>
+      <span class="loader__corner loader__corner--tl" aria-hidden="true">// portfolio v1.0</span>
+      <span class="loader__corner loader__corner--br" aria-hidden="true">LHR · UTC+5</span>
+      <div class="loader__inner">
+        <svg class="loader__net" viewBox="0 0 240 240" aria-hidden="true">
+          <g class="loader__rot">
+            <!-- centre to ring -->
+            <line x1="120" y1="120" x2="190" y2="120" style="animation-delay: 0.1s" />
+            <line x1="120" y1="120" x2="155" y2="59.4" style="animation-delay: 0.15s" />
+            <line x1="120" y1="120" x2="85" y2="59.4" style="animation-delay: 0.2s" />
+            <line x1="120" y1="120" x2="50" y2="120" style="animation-delay: 0.25s" />
+            <line x1="120" y1="120" x2="85" y2="180.6" style="animation-delay: 0.3s" />
+            <line x1="120" y1="120" x2="155" y2="180.6" style="animation-delay: 0.35s" />
+            <!-- ring -->
+            <line x1="190" y1="120" x2="155" y2="59.4" style="animation-delay: 0.4s" />
+            <line x1="155" y1="59.4" x2="85" y2="59.4" style="animation-delay: 0.45s" />
+            <line x1="85" y1="59.4" x2="50" y2="120" style="animation-delay: 0.5s" />
+            <line x1="50" y1="120" x2="85" y2="180.6" style="animation-delay: 0.55s" />
+            <line x1="85" y1="180.6" x2="155" y2="180.6" style="animation-delay: 0.6s" />
+            <line x1="155" y1="180.6" x2="190" y2="120" style="animation-delay: 0.65s" />
+            <!-- outer -->
+            <line x1="211" y1="67.5" x2="190" y2="120" style="animation-delay: 0.75s" />
+            <line x1="211" y1="67.5" x2="155" y2="59.4" style="animation-delay: 0.8s" />
+            <line x1="29" y1="67.5" x2="85" y2="59.4" style="animation-delay: 0.85s" />
+            <line x1="29" y1="67.5" x2="50" y2="120" style="animation-delay: 0.9s" />
+            <line x1="120" y1="225" x2="85" y2="180.6" style="animation-delay: 0.95s" />
+            <line x1="120" y1="225" x2="155" y2="180.6" style="animation-delay: 1s" />
+            <!-- nodes -->
+            <circle class="n core" cx="120" cy="120" r="6" />
+            <circle class="n" cx="190" cy="120" r="4" style="animation-delay: 0.3s" />
+            <circle class="n alt" cx="155" cy="59.4" r="4" style="animation-delay: 0.35s" />
+            <circle class="n" cx="85" cy="59.4" r="4" style="animation-delay: 0.4s" />
+            <circle class="n alt" cx="50" cy="120" r="4" style="animation-delay: 0.45s" />
+            <circle class="n" cx="85" cy="180.6" r="4" style="animation-delay: 0.5s" />
+            <circle class="n alt" cx="155" cy="180.6" r="4" style="animation-delay: 0.55s" />
+            <circle class="n hot" cx="211" cy="67.5" r="3" style="animation-delay: 0.8s" />
+            <circle class="n hot" cx="29" cy="67.5" r="3" style="animation-delay: 0.9s" />
+            <circle class="n hot" cx="120" cy="225" r="3" style="animation-delay: 1s" />
+            <!-- signal pulses travelling across the network -->
+            <circle class="pulse" cx="29" cy="67.5" r="2.5" style="animation-delay: 1.1s">
+              <animateMotion dur="2.2s" begin="1.1s" repeatCount="indefinite" path="M0,0 L56,-8.1 L91,52.5 L161,52.5 L182,0" />
+            </circle>
+            <circle class="pulse" cx="120" cy="225" r="2.5" style="animation-delay: 1.6s">
+              <animateMotion dur="2.8s" begin="1.6s" repeatCount="indefinite" path="M0,0 L-35,-44.4 L0,-105 L35,-165.6 L91,-157.5" />
+            </circle>
+            <circle class="pulse" cx="211" cy="67.5" r="2" style="animation-delay: 2s">
+              <animateMotion dur="3.4s" begin="2s" repeatCount="indefinite" path="M0,0 L-21,52.5 L-56,113.1 L-91,157.5 L-126,113.1 L-161,52.5 L-182,0" />
+            </circle>
+          </g>
+        </svg>
+        <div class="loader__name">Sheraz Ahmad</div>
+        <div class="loader__status"><span id="loader-status">Booting agent graph</span><i class="loader__caret" aria-hidden="true"></i></div>
+        <div class="loader__bar"><span id="loader-bar"></span></div>
+        <div class="loader__meta"><span>AI Engineer</span><span><b id="loader-count">0</b>%</span></div>
+      </div>
     </div>
 
     <canvas id="scene" class="scene" aria-hidden="true"></canvas>
