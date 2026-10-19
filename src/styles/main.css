@@ -1,44 +1,51 @@
 /* =========================================================
    Tokens
    ========================================================= */
+/* Default theme: "engineering notebook". Bone paper, navy ink, vermilion + amber accents,
+   ultramarine for the blueprint-style network. */
 :root {
-  --bg: #070b14;
-  --bg-2: #0d1322;
-  --surface: rgba(255, 255, 255, 0.045);
-  --surface-2: rgba(255, 255, 255, 0.08);
-  --border: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.2);
-  --text: #e9eef7;
-  --muted: #94a0b8;
-  --accent: #38e1ff;
-  --accent-2: #8b7bff;
-  --accent-3: #ff6ad5;
-  --ok: #4ade80;
-  --btn-text: #04101a;
+  --bg: #f5f0e8;
+  --bg-2: #fffcf7;
+  --surface: rgba(23, 26, 46, 0.045);
+  --surface-2: rgba(23, 26, 46, 0.08);
+  --border: rgba(23, 26, 46, 0.12);
+  --border-strong: rgba(23, 26, 46, 0.24);
+  --text: #171a2e;
+  --muted: #5b607a;
+  --accent: #c8411b; /* vermilion, darkened enough for small text */
+  --accent-bright: #e0491f; /* vermilion for large/decorative use */
+  --accent-2: #1d3bd6; /* ultramarine ink */
+  --accent-3: #e8a21b; /* amber */
+  --ok: #1f8a4c;
+  --btn-bg: #171a2e;
+  --btn-text: #f5f0e8;
   --font-head: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --gutter: clamp(16px, 4vw, 48px);
   --nav-h: 72px;
   --radius: 18px;
   --ease: cubic-bezier(0.2, 0.65, 0.2, 1);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
-:root[data-theme='light'] {
-  --bg: #f3f6fb;
-  --bg-2: #ffffff;
-  --surface: rgba(12, 20, 36, 0.04);
-  --surface-2: rgba(12, 20, 36, 0.08);
-  --border: rgba(12, 20, 36, 0.12);
-  --border-strong: rgba(12, 20, 36, 0.22);
-  --text: #0b1220;
-  --muted: #566279;
-  --accent: #0a8fb5;
-  --accent-2: #5b4bd6;
-  --accent-3: #d6338f;
-  --ok: #16a34a;
-  --btn-text: #ffffff;
-  color-scheme: light;
+/* Dark theme: ink navy with the same warm accents. */
+:root[data-theme='dark'] {
+  --bg: #121420;
+  --bg-2: #1a1d2e;
+  --surface: rgba(241, 236, 226, 0.05);
+  --surface-2: rgba(241, 236, 226, 0.09);
+  --border: rgba(241, 236, 226, 0.11);
+  --border-strong: rgba(241, 236, 226, 0.22);
+  --text: #f1ece2;
+  --muted: #9a9db5;
+  --accent: #ff6a3d;
+  --accent-bright: #ff6a3d;
+  --accent-2: #8fa0ff;
+  --accent-3: #ffb547;
+  --ok: #4ade80;
+  --btn-bg: #f1ece2;
+  --btn-text: #121420;
+  color-scheme: dark;
 }
 
 @property --angle {
@@ -207,7 +214,7 @@ main,
 .progress span {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--accent-3));
+  background: linear-gradient(90deg, var(--accent-bright), var(--accent-3));
   transform-origin: left;
   transform: scaleX(0);
 }
@@ -328,7 +335,7 @@ html.has-cursor .cursor.is-visible {
    Type helpers
    ========================================================= */
 .grad {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2) 60%, var(--accent-3));
+  background: linear-gradient(90deg, var(--accent-bright), var(--accent-3));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -435,13 +442,15 @@ html.has-cursor .cursor.is-visible {
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  background: var(--btn-bg);
   color: var(--btn-text);
 }
 
 .btn--primary:hover {
+  background: var(--accent-bright);
+  color: #fff8f0;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -8px color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: 0 12px 30px -8px color-mix(in srgb, var(--accent-bright) 55%, transparent);
 }
 
 .btn--ghost {
@@ -489,8 +498,8 @@ html.has-cursor .cursor.is-visible {
   stroke-linejoin: round;
 }
 
-:root[data-theme='light'] .icon-sun,
-:root:not([data-theme='light']) .icon-moon {
+:root[data-theme='dark'] .icon-moon,
+:root:not([data-theme='dark']) .icon-sun {
   display: none;
 }
 
@@ -562,11 +571,7 @@ html.has-cursor .cursor.is-visible {
   position: relative;
   z-index: 3;
   white-space: nowrap;
-  color: #ffffff; /* white on the default dark theme */
-}
-
-:root[data-theme='light'] .nav__logo {
-  color: var(--text); /* dark on the light theme */
+  color: var(--text); /* ink on the light theme, bone-white on dark */
 }
 
 @media (max-width: 480px) {
@@ -940,9 +945,9 @@ html.has-cursor .cursor.is-visible {
   position: relative;
   display: grid;
   place-items: center;
-  background: conic-gradient(from var(--angle), var(--accent), var(--accent-2), var(--accent-3), var(--accent));
+  background: conic-gradient(from var(--angle), var(--accent-bright), var(--accent-3), var(--accent-2), var(--accent-bright));
   animation: spin-orb 7s linear infinite;
-  box-shadow: 0 0 40px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+  box-shadow: 0 0 40px -8px color-mix(in srgb, var(--accent-bright) 50%, transparent);
 }
 
 .avatar__orb::before {
@@ -959,7 +964,7 @@ html.has-cursor .cursor.is-visible {
   font-size: 2.2rem;
   font-weight: 700;
   letter-spacing: -0.04em;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  background: linear-gradient(90deg, var(--accent-bright), var(--accent-3));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1353,7 +1358,7 @@ html.has-cursor .cursor.is-visible {
 }
 
 .project[data-category='vision'] .tag {
-  color: var(--accent-3);
+  color: color-mix(in srgb, var(--accent-3) 70%, var(--text));
 }
 
 .project__client {

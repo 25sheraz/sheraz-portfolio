@@ -1,27 +1,28 @@
 // Colour palettes shared by CSS (via data-theme) and the WebGL scene.
+// Light is the default: bone paper with an ultramarine "blueprint" network and vermilion pulses.
 
 export const palettes = {
-  dark: {
-    bg: '#070b14',
-    node: '#38e1ff',
-    nodeWhite: '#dff6ff',
-    nodeAlt: '#8b7bff',
-    nodeHot: '#ff6ad5',
-    highlight: '#ff6ad5',
-    edge: '#1b6f8a',
-    edgePulse: '#b8f4ff',
-    additive: true,
-  },
   light: {
-    bg: '#f3f6fb',
-    node: '#0a8fb5',
-    nodeWhite: '#2b5a7a',
-    nodeAlt: '#5b4bd6',
-    nodeHot: '#d6338f',
-    highlight: '#d6338f',
-    edge: '#8cbfd2',
-    edgePulse: '#0a8fb5',
+    bg: '#f5f0e8',
+    node: '#1d3bd6',
+    nodeWhite: '#171a2e',
+    nodeAlt: '#e0491f',
+    nodeHot: '#e8a21b',
+    highlight: '#e0491f',
+    edge: '#8d97c9',
+    edgePulse: '#e0491f',
     additive: false,
+  },
+  dark: {
+    bg: '#121420',
+    node: '#8fa0ff',
+    nodeWhite: '#f1ece2',
+    nodeAlt: '#ff6a3d',
+    nodeHot: '#ffb547',
+    highlight: '#ff6a3d',
+    edge: '#2f3a7a',
+    edgePulse: '#ffd9a3',
+    additive: true,
   },
 };
 
@@ -30,15 +31,15 @@ export function initTheme(onChange) {
   const btn = document.getElementById('theme-toggle');
   const meta = document.querySelector('meta[name="theme-color"]');
 
-  const get = () => (root.dataset.theme === 'light' ? 'light' : 'dark');
+  const get = () => (root.dataset.theme === 'dark' ? 'dark' : 'light');
 
   const apply = (t, persist = true) => {
     root.dataset.theme = t;
     if (meta) meta.setAttribute('content', palettes[t].bg);
-    if (btn) btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    if (btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
     if (persist) {
       try {
-        // Session-only: a fresh visit always starts in dark mode.
+        // Session-only: a fresh visit always starts in light mode.
         sessionStorage.setItem('theme', t);
       } catch {
         /* storage unavailable */
@@ -48,7 +49,7 @@ export function initTheme(onChange) {
   };
 
   apply(get(), false);
-  btn?.addEventListener('click', () => apply(get() === 'dark' ? 'light' : 'dark'));
+  btn?.addEventListener('click', () => apply(get() === 'light' ? 'dark' : 'light'));
 
   return { get, palette: () => palettes[get()] };
 }
