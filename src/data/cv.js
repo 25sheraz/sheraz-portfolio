@@ -189,6 +189,8 @@ export const projects = [
   },
   {
     id: 'develmo-rag',
+    cover: '/projects/develmo-rag.jpg',
+    coverAlt: 'DevelMO AI Knowledge Assistant cover: company documents turned into grounded answers with source citations, hybrid search and session memory',
     title: 'DevelMO AI Knowledge Assistant',
     subtitle: 'Dual-vector hybrid RAG chatbot with reranking and session memory',
     client: 'DevelMO',
@@ -201,6 +203,8 @@ export const projects = [
   },
   {
     id: 'knowledge-rag-docs',
+    cover: '/projects/knowledge-rag-docs.jpg',
+    coverAlt: 'Knowledge RAG and Document Manager cover: upload PDFs, ask questions and get source-backed answers',
     title: 'Knowledge RAG + Document Manager',
     subtitle: 'Upload PDFs and chat with them, with full document lifecycle',
     category: 'genai',
@@ -212,6 +216,8 @@ export const projects = [
   },
   {
     id: 'optivortium',
+    cover: '/projects/optivortium.jpg',
+    coverAlt: 'Optivortium Alliance cover: live virtual try-on with facial landmarks, frame suggestions and 87% face-shape accuracy',
     title: 'Optivortium Alliance',
     subtitle: 'AI eyewear platform · final year project',
     category: 'vision',
@@ -223,6 +229,8 @@ export const projects = [
   },
   {
     id: 'ppc-rag',
+    cover: '/projects/ppc-rag.jpg',
+    coverAlt: 'Pakistan Penal Code Legal RAG cover: a legal research assistant that answers questions with cited PPC sections',
     title: 'Pakistan Penal Code Legal RAG',
     subtitle: 'Legal assistant grounded in PPC 1860',
     category: 'genai',
@@ -234,6 +242,8 @@ export const projects = [
   },
   {
     id: 'self-learning-agent',
+    cover: '/projects/self-learning-agent.jpg',
+    coverAlt: 'Self-Learning Coding Agent cover: HumanEval pass@1 rises from 62% to 74% with persistent memory',
     title: 'Self-Learning Coding Agent',
     subtitle: 'Autonomous agent that learns from its own failures',
     category: 'genai',
