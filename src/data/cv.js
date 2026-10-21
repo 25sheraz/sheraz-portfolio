@@ -171,7 +171,7 @@ export const projects = [
       "An enterprise RAG assistant grounded in DevelMO's knowledge base. Dense embeddings and sparse BM25 run side by side in Qdrant and are merged with Reciprocal Rank Fusion, then a cross-encoder reranks the candidates before the LLM answers. Redis keeps multi-turn session memory and rewrites follow-up questions into standalone queries. Ships as a FastAPI server, an embeddable React chat widget with source citations, and a CLI.",
     metric: 'Hybrid search + reranking · answers with source citations',
     tech: ['Python', 'FastAPI', 'Qdrant', 'BM25 + dense vectors', 'Cross-encoder reranking', 'Redis', 'React', 'TypeScript'],
-    links: [],
+    links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/DevelMO' }],
   },
   {
     id: 'knowledge-rag-docs',
