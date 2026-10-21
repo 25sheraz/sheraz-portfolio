@@ -7,6 +7,7 @@ import { initTheme, palettes } from './ui/theme.js';
 import { initNav } from './ui/nav.js';
 import { initCursor } from './ui/cursor.js';
 import { initReveal, initCounters, initTypewriter, initTilt, initSpotlight, initProjectFilters } from './ui/effects.js';
+import { initLightbox } from './ui/lightbox.js';
 import { createScene } from './scene/scene.js';
 import { initScroll, refreshScroll } from './scene/scroll.js';
 
@@ -43,6 +44,7 @@ initTypewriter(document.getElementById('typewriter'), profile.roles, device);
 initTilt(device);
 initSpotlight(device);
 initProjectFilters(() => refreshScroll());
+initLightbox(device);
 initCursor(device);
 
 // Hovering (or tapping) a project card lights up its cluster of nodes; same for skill rings.
@@ -67,7 +69,7 @@ function wireHighlights(gridId, attr, apply) {
     if (card && !card.contains(e.relatedTarget)) sceneApi?.clearHighlight();
   });
   grid.addEventListener('click', (e) => {
-    if (!device.isTouch || e.target.closest('a')) return;
+    if (!device.isTouch || e.target.closest('a, button')) return;
     const card = pick(e.target);
     if (!card) return;
     const on = !card.classList.contains('is-lit');

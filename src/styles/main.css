@@ -1368,6 +1368,71 @@ html.has-cursor .cursor.is-visible {
   }
 }
 
+/* The cover is a button that opens the full-size viewer */
+.project__zoom {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.project__zoom:focus-visible {
+  outline-offset: -4px;
+  border-radius: 0;
+}
+
+.project__zoom.is-lifted img {
+  opacity: 0;
+}
+
+.project__zoom-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 6px 10px;
+  border-radius: 999px;
+  background: rgba(18, 20, 32, 0.78);
+  color: #f1ece2;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  pointer-events: none;
+}
+
+.project__zoom-hint .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.project:hover .project__zoom-hint,
+.project__zoom:focus-visible .project__zoom-hint {
+  opacity: 1;
+  transform: none;
+}
+
+/* No hover on touch screens, so the hint is always there as a small icon */
+html.touch .project__zoom-hint {
+  opacity: 1;
+  transform: none;
+  padding: 7px;
+}
+
+html.touch .project__zoom-hint span {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .project__cover img {
     transition: none;
@@ -1376,6 +1441,193 @@ html.has-cursor .cursor.is-visible {
   .project:hover .project__cover img,
   .project:focus-visible .project__cover img {
     transform: none;
+  }
+}
+
+/* ---------- Lightbox ---------- */
+html.lightbox-open {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 150; /* over the nav, under the custom cursor */
+  display: grid;
+  place-items: center;
+  place-items: safe center; /* on very short screens, scroll instead of cutting off the top */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 76px clamp(16px, 8vw, 112px) 32px;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.lightbox.is-open .lightbox__backdrop {
+  opacity: 1;
+}
+
+.lightbox__figure {
+  position: relative;
+  width: min(1120px, 100%, max(260px, (100vh - 270px) * 4 / 3));
+  width: min(1120px, 100%, max(260px, (100svh - 270px) * 4 / 3));
+  margin: 0;
+  display: grid;
+  gap: 18px;
+}
+
+.lightbox__frame {
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  box-shadow: 0 40px 90px -30px rgba(10, 12, 24, 0.55);
+  transform-origin: 0 0;
+}
+
+.lightbox__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lightbox__caption {
+  display: grid;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s var(--ease) 0.15s, transform 0.4s var(--ease) 0.15s;
+}
+
+.lightbox.is-open .lightbox__caption {
+  opacity: 1;
+  transform: none;
+}
+
+.lightbox__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lightbox[data-category='genai'] .tag {
+  color: var(--accent-2);
+}
+
+.lightbox[data-category='vision'] .tag {
+  color: color-mix(in srgb, var(--accent-3) 70%, var(--text));
+}
+
+.lightbox__count {
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.lightbox__title {
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+}
+
+.lightbox__subtitle {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.lightbox__links {
+  margin-top: 8px;
+  padding-top: 12px;
+}
+
+.lightbox__links[hidden] {
+  display: none;
+}
+
+.lightbox__btn {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: color-mix(in srgb, var(--bg-2) 85%, transparent);
+  color: var(--text);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease), transform 0.2s var(--ease), color 0.2s, border-color 0.2s;
+}
+
+.lightbox.is-open .lightbox__btn {
+  opacity: 1;
+}
+
+.lightbox__btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.06);
+}
+
+.lightbox__btn[hidden] {
+  display: none;
+}
+
+.lightbox__btn .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.lightbox__close {
+  top: 16px;
+  right: 16px;
+}
+
+.lightbox__step {
+  top: calc(50% - 24px);
+}
+
+.lightbox__step--prev {
+  left: clamp(12px, 2.5vw, 32px);
+}
+
+.lightbox__step--next {
+  right: clamp(12px, 2.5vw, 32px);
+}
+
+/* Phones: arrows move under the picture so it can use the full width */
+@media (max-width: 760px) {
+  .lightbox {
+    padding: 72px 16px 88px;
+  }
+
+  .lightbox__step {
+    top: auto;
+    bottom: 20px;
+  }
+
+  .lightbox__step--prev {
+    left: calc(50% - 60px);
+  }
+
+  .lightbox__step--next {
+    right: calc(50% - 60px);
   }
 }
 

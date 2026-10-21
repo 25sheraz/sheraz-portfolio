@@ -16,9 +16,13 @@ export const ICONS = {
   arrow: svg('<path d="M7 17 17 7M8 7h9v9"/>'),
   spark: svg('<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/>'),
   cap: svg('<path d="m2 10 10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/>'),
+  expand: svg('<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>'),
+  close: svg('<path d="M18 6 6 18M6 6l12 12"/>'),
+  prev: svg('<path d="m15 18-6-6 6-6"/>'),
+  next: svg('<path d="m9 18 6-6-6-6"/>'),
 };
 
-const catLabel = (id) => projectCategories.find((c) => c.id === id)?.label ?? id;
+export const catLabel = (id) => projectCategories.find((c) => c.id === id)?.label ?? id;
 
 function set(id, html) {
   const el = document.getElementById(id);
@@ -97,7 +101,12 @@ function projectHTML(p, i) {
         .join('')}</div>`
     : '';
   const cover = p.cover
-    ? `<figure class="project__cover"><img src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}" width="1448" height="1086" loading="lazy" decoding="async"></figure>`
+    ? `<figure class="project__cover">
+        <button class="project__zoom" type="button" data-zoom="${i}" aria-label="View the ${esc(p.title)} picture full size">
+          <img src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}" width="1448" height="1086" loading="lazy" decoding="async">
+          <span class="project__zoom-hint" aria-hidden="true">${ICONS.expand}<span>View</span></span>
+        </button>
+      </figure>`
     : '';
   return `
     <article class="card project${p.featured ? ' is-featured' : ''}${p.cover ? ' has-cover' : ''}" data-category="${esc(p.category)}" data-project="${i}" data-reveal tabindex="0">
