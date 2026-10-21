@@ -104,7 +104,7 @@ export const projects = [
       'A WhatsApp bot that runs the full customer journey for a Dubai car battery company, from the first enquiry to a closed sale, 24/7. Every conversation is stored in PostgreSQL so the bot remembers returning customers, sends sale and complaint alerts to the team, and hands over cleanly when a human takes the chat.',
     metric: '24/7 · first message to closed sale',
     tech: ['n8n', 'WhatsApp Cloud API', 'LLM', 'PostgreSQL', 'Webhooks'],
-    links: [],
+    links: [{ label: 'n8n workflow', url: 'https://github.com/25sheraz/n8n-ai-automations/tree/main/whatsapp-battery-sales-bot' }],
   },
   {
     id: 'develmo-crm',
@@ -130,7 +130,10 @@ export const projects = [
       'An ElevenLabs voice agent that pulls each lead from the CRM, generates a personalised opening line and handles the live conversation end to end. Packaged as a product and used by DevelMO for its own outbound calls.',
     metric: '95% accuracy understanding callers',
     tech: ['ElevenLabs', 'Voice AI', 'CRM API'],
-    links: [{ label: 'Product page', url: 'https://develmo.com/our-products/ai-voice-agent' }],
+    links: [
+      { label: 'Product page', url: 'https://develmo.com/our-products/ai-voice-agent' },
+      { label: 'n8n workflow', url: 'https://github.com/25sheraz/n8n-ai-automations/tree/main/ai-voice-agent-outbound' },
+    ],
   },
   {
     id: 'neoline',
@@ -155,6 +158,7 @@ export const projects = [
     links: [
       { label: 'Sylink', url: 'https://sylink.tecclubx.site' },
       { label: 'SecureTapVPN', url: 'https://securetapvpn.com' },
+      { label: 'n8n workflows', url: 'https://github.com/25sheraz/n8n-ai-automations/tree/main/vpn-support-chatbots' },
     ],
   },
   {
@@ -167,7 +171,7 @@ export const projects = [
       "An enterprise RAG assistant grounded in DevelMO's knowledge base. Dense embeddings and sparse BM25 run side by side in Qdrant and are merged with Reciprocal Rank Fusion, then a cross-encoder reranks the candidates before the LLM answers. Redis keeps multi-turn session memory and rewrites follow-up questions into standalone queries. Ships as a FastAPI server, an embeddable React chat widget with source citations, and a CLI.",
     metric: 'Hybrid search + reranking · answers with source citations',
     tech: ['Python', 'FastAPI', 'Qdrant', 'BM25 + dense vectors', 'Cross-encoder reranking', 'Redis', 'React', 'TypeScript'],
-    links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/DevelMO' }],
+    links: [],
   },
   {
     id: 'knowledge-rag-docs',
@@ -178,7 +182,7 @@ export const projects = [
       'The same hybrid RAG engine extended with a dynamic document-management layer: upload, list, inspect and delete PDFs through a REST API, with SHA-256 duplicate detection and automatic clean-up of the matching Qdrant vectors. Includes a React drag-and-drop uploader, document tabs and a floating knowledge chat widget, all sharing one ingestion pipeline with the batch CLI.',
     metric: 'Live PDF ingestion · duplicate detection · vector clean-up on delete',
     tech: ['Python', 'FastAPI', 'Qdrant', 'Hybrid search', 'Redis', 'React', 'TypeScript', 'PDF ingestion'],
-    links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/PDF-Uploader-' }],
+    links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/hybrid-rag-assistant' }],
   },
   {
     id: 'foodmate',
@@ -189,7 +193,10 @@ export const projects = [
       'A backend that identifies a meal from a single photo with a vision language model and estimates calories, protein, fat and carbohydrates, plus an in-app AI nutrition coach exposed through a REST API to the existing app.',
     metric: '90% accuracy on clear images · 79% on blurry',
     tech: ['Vision Language Model', 'REST API', 'FastAPI'],
-    links: [{ label: 'Live app', url: 'https://foodmate.xapcoders.com' }],
+    links: [
+      { label: 'Live app', url: 'https://foodmate.xapcoders.com' },
+      { label: 'n8n workflows', url: 'https://github.com/25sheraz/n8n-ai-automations/tree/main/foodmate-nutrition-api' },
+    ],
   },
   {
     id: 'optivortium',
@@ -200,7 +207,7 @@ export const projects = [
       'Real-time virtual try-on that overlays glasses on a live webcam feed using a 478-point facial landmark model and affine transforms, with a geometry-based face shape classifier that drives personalised frame recommendations.',
     metric: '87% face-shape accuracy on 700+ images',
     tech: ['OpenCV', 'MediaPipe', 'Dlib', 'scikit-learn', 'Flask', 'React', 'Node.js'],
-    links: [],
+    links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/ai-eyewear-platform' }],
   },
   {
     id: 'ppc-rag',
@@ -211,7 +218,7 @@ export const projects = [
       "A retrieval-augmented legal assistant that advises on applicable sections and citizens' rights. Combines PyMuPDF extraction with a RapidOCR fallback for scanned pages, cosine-similarity semantic search and GPT-4o-mini answers with exact section citations and punishment ranges.",
     metric: 'Exact section citations on every answer',
     tech: ['Python', 'GPT-4o-mini', 'OpenAI Embeddings', 'PyMuPDF', 'RapidOCR', 'Flask'],
-    links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/RAG-CRIMINAL-CHAT-BOT' }],
+    links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/ppc-legal-rag-chatbot' }],
   },
   {
     id: 'self-learning-agent',
