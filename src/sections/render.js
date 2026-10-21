@@ -96,18 +96,24 @@ function projectHTML(p, i) {
         .map((l) => `<a class="link-arrow" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ${ICONS.arrow}</a>`)
         .join('')}</div>`
     : '';
+  const cover = p.cover
+    ? `<figure class="project__cover"><img src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}" width="1200" height="900" loading="lazy" decoding="async"></figure>`
+    : '';
   return `
-    <article class="card project${p.featured ? ' is-featured' : ''}" data-category="${esc(p.category)}" data-project="${i}" data-reveal tabindex="0">
-      <div class="project__top">
-        <span class="tag">${esc(catLabel(p.category))}</span>
-        ${p.client ? `<span class="project__client">${esc(p.client)}</span>` : ''}
+    <article class="card project${p.featured ? ' is-featured' : ''}${p.cover ? ' has-cover' : ''}" data-category="${esc(p.category)}" data-project="${i}" data-reveal tabindex="0">
+      ${cover}
+      <div class="project__body">
+        <div class="project__top">
+          <span class="tag">${esc(catLabel(p.category))}</span>
+          ${p.client ? `<span class="project__client">${esc(p.client)}</span>` : ''}
+        </div>
+        <h3 class="project__title">${esc(p.title)}</h3>
+        <p class="project__subtitle">${esc(p.subtitle)}</p>
+        <p class="project__desc">${esc(p.description)}</p>
+        <p class="project__metric">${ICONS.bolt}<span>${esc(p.metric)}</span></p>
+        <ul class="project__tech" aria-label="Technologies">${p.tech.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+        ${links}
       </div>
-      <h3 class="project__title">${esc(p.title)}</h3>
-      <p class="project__subtitle">${esc(p.subtitle)}</p>
-      <p class="project__desc">${esc(p.description)}</p>
-      <p class="project__metric">${ICONS.bolt}<span>${esc(p.metric)}</span></p>
-      <ul class="project__tech" aria-label="Technologies">${p.tech.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
-      ${links}
     </article>`;
 }
 

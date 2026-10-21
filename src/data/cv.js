@@ -95,6 +95,8 @@ export const projectCategories = [
 export const projects = [
   {
     id: 'carbatterysquad',
+    cover: '/projects/carbatterysquad.jpg',
+    coverAlt: 'CarBatterySquad cover: a WhatsApp chat where the AI bot helps a customer find a car battery and confirms the order',
     title: 'CarBatterySquad',
     subtitle: 'End-to-end WhatsApp sales & support automation',
     client: 'Dubai, UAE',
@@ -108,6 +110,8 @@ export const projects = [
   },
   {
     id: 'develmo-crm',
+    cover: '/projects/develmo-crm.jpg',
+    coverAlt: 'DevelMO cover: Apollo leads flowing into GoHighLevel CRM, AI-personalised emails and booked meetings, with +30% revenue in the first month',
     title: 'DevelMO CRM Lead Engine',
     subtitle: 'GoHighLevel lead generation & outreach automation',
     client: 'DevelMO',
@@ -121,6 +125,8 @@ export const projects = [
   },
   {
     id: 'develmo-voice',
+    cover: '/projects/develmo-voice.jpg',
+    coverAlt: 'DevelMO AI voice agent cover: a live outbound call with a voice waveform and 95% caller understanding accuracy',
     title: 'AI Voice Cold-Calling Agent',
     subtitle: 'Outbound voice agent, now a DevelMO product',
     client: 'DevelMO',
@@ -137,6 +143,8 @@ export const projects = [
   },
   {
     id: 'neoline',
+    cover: '/projects/neoline.jpg',
+    coverAlt: 'Neoline cover: a WhatsApp support chat answering questions from the company’s service information and FAQs',
     title: 'Neoline',
     subtitle: 'WhatsApp AI customer service chatbot',
     category: 'automation',
@@ -148,6 +156,8 @@ export const projects = [
   },
   {
     id: 'support-bots',
+    cover: '/projects/support-bots.jpg',
+    coverAlt: 'Sylink and SecureTapVPN cover: website support chats with live agent takeover, 500+ queries a month and 90% resolved without human help',
     title: 'Sylink & SecureTapVPN',
     subtitle: 'AI customer support chatbots',
     category: 'genai',
@@ -159,6 +169,22 @@ export const projects = [
       { label: 'Sylink', url: 'https://sylink.tecclubx.site' },
       { label: 'SecureTapVPN', url: 'https://securetapvpn.com' },
       { label: 'n8n workflows', url: 'https://github.com/25sheraz/n8n-ai-automations/tree/main/vpn-support-chatbots' },
+    ],
+  },
+  {
+    id: 'foodmate',
+    cover: '/projects/foodmate.jpg',
+    coverAlt: 'FoodMate cover: a meal photo analysed for calories, protein, fat and carbs, with 90% accuracy on clear images',
+    title: 'FoodMate',
+    subtitle: 'AI meal & nutrition analysis backend',
+    category: 'vision',
+    description:
+      'A backend that identifies a meal from a single photo with a vision language model and estimates calories, protein, fat and carbohydrates, plus an in-app AI nutrition coach exposed through a REST API to the existing app.',
+    metric: '90% accuracy on clear images · 79% on blurry',
+    tech: ['Vision Language Model', 'REST API', 'FastAPI'],
+    links: [
+      { label: 'Live app', url: 'https://foodmate.xapcoders.com' },
+      { label: 'n8n workflows', url: 'https://github.com/25sheraz/n8n-ai-automations/tree/main/foodmate-nutrition-api' },
     ],
   },
   {
@@ -183,20 +209,6 @@ export const projects = [
     metric: 'Live PDF ingestion · duplicate detection · vector clean-up on delete',
     tech: ['Python', 'FastAPI', 'Qdrant', 'Hybrid search', 'Redis', 'React', 'TypeScript', 'PDF ingestion'],
     links: [{ label: 'GitHub', url: 'https://github.com/25sheraz/hybrid-rag-assistant' }],
-  },
-  {
-    id: 'foodmate',
-    title: 'FoodMate',
-    subtitle: 'AI meal & nutrition analysis backend',
-    category: 'vision',
-    description:
-      'A backend that identifies a meal from a single photo with a vision language model and estimates calories, protein, fat and carbohydrates, plus an in-app AI nutrition coach exposed through a REST API to the existing app.',
-    metric: '90% accuracy on clear images · 79% on blurry',
-    tech: ['Vision Language Model', 'REST API', 'FastAPI'],
-    links: [
-      { label: 'Live app', url: 'https://foodmate.xapcoders.com' },
-      { label: 'n8n workflows', url: 'https://github.com/25sheraz/n8n-ai-automations/tree/main/foodmate-nutrition-api' },
-    ],
   },
   {
     id: 'optivortium',

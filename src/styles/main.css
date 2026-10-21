@@ -1327,9 +1327,56 @@ html.has-cursor .cursor.is-visible {
 }
 
 .project {
+  --card-pad: clamp(20px, 2.5vw, 28px);
   display: flex;
   flex-direction: column;
   cursor: default;
+}
+
+.project__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.project__cover {
+  margin: calc(-1 * var(--card-pad)) calc(-1 * var(--card-pad)) var(--card-pad);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.project__cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+
+.project:hover .project__cover img,
+.project:focus-visible .project__cover img {
+  transform: scale(1.03);
+}
+
+/* Covers share one 4:3 shape, so a featured card with a cover keeps the normal width */
+@media (min-width: 1000px) {
+  .project.is-featured.has-cover:first-child {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project__cover img {
+    transition: none;
+  }
+
+  .project:hover .project__cover img,
+  .project:focus-visible .project__cover img {
+    transform: none;
+  }
 }
 
 .project.is-hidden {
