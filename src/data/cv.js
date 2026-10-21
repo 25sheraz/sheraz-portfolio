@@ -92,10 +92,14 @@ export const projectCategories = [
   { id: 'vision', label: 'Computer Vision' },
 ];
 
+// Cover widths saved in public/projects as <id>-<width>.webp. The 4K redesigns go up to 3840px.
+const HD = [800, 1200, 1448];
+const UHD = [800, 1200, 1920, 2880, 3840];
+
 export const projects = [
   {
     id: 'carbatterysquad',
-    cover: '/projects/carbatterysquad.webp',
+    coverWidths: HD,
     coverAlt: 'CarBatterySquad cover: a WhatsApp chat where the AI bot helps a customer find a car battery and confirms the order',
     title: 'CarBatterySquad',
     subtitle: 'End-to-end WhatsApp sales & support automation',
@@ -110,7 +114,7 @@ export const projects = [
   },
   {
     id: 'develmo-crm',
-    cover: '/projects/develmo-crm.webp',
+    coverWidths: HD,
     coverAlt: 'DevelMO cover: Apollo leads flowing into GoHighLevel CRM, AI-personalised emails and booked meetings, with +30% revenue in the first month',
     title: 'DevelMO CRM Lead Engine',
     subtitle: 'GoHighLevel lead generation & outreach automation',
@@ -125,7 +129,7 @@ export const projects = [
   },
   {
     id: 'develmo-voice',
-    cover: '/projects/develmo-voice.webp',
+    coverWidths: HD,
     coverAlt: 'DevelMO AI voice agent cover: a live outbound call with a voice waveform and 95% caller understanding accuracy',
     title: 'AI Voice Cold-Calling Agent',
     subtitle: 'Outbound voice agent, now a DevelMO product',
@@ -143,7 +147,7 @@ export const projects = [
   },
   {
     id: 'neoline',
-    cover: '/projects/neoline.webp',
+    coverWidths: HD,
     coverAlt: 'Neoline cover: a WhatsApp support chat answering questions from the company’s service information and FAQs',
     title: 'Neoline',
     subtitle: 'WhatsApp AI customer service chatbot',
@@ -156,7 +160,7 @@ export const projects = [
   },
   {
     id: 'support-bots',
-    cover: '/projects/support-bots.webp',
+    coverWidths: HD,
     coverAlt: 'Sylink and SecureTapVPN cover: website support chats with live agent takeover, 500+ queries a month and 90% resolved without human help',
     title: 'Sylink & SecureTapVPN',
     subtitle: 'AI customer support chatbots',
@@ -173,7 +177,7 @@ export const projects = [
   },
   {
     id: 'foodmate',
-    cover: '/projects/foodmate.webp',
+    coverWidths: HD,
     coverAlt: 'FoodMate cover: a meal photo analysed for calories, protein, fat and carbs, with 90% accuracy on clear images',
     title: 'FoodMate',
     subtitle: 'AI meal & nutrition analysis backend',
@@ -189,7 +193,7 @@ export const projects = [
   },
   {
     id: 'develmo-rag',
-    cover: '/projects/develmo-rag.webp',
+    coverWidths: UHD,
     coverAlt: 'DevelMO AI Knowledge Assistant cover: company documents turned into grounded answers with source citations, hybrid search and session memory',
     title: 'DevelMO AI Knowledge Assistant',
     subtitle: 'Dual-vector hybrid RAG chatbot with reranking and session memory',
@@ -203,7 +207,7 @@ export const projects = [
   },
   {
     id: 'knowledge-rag-docs',
-    cover: '/projects/knowledge-rag-docs.webp',
+    coverWidths: UHD,
     coverAlt: 'Knowledge RAG and Document Manager cover: upload PDFs, ask questions and get source-backed answers',
     title: 'Knowledge RAG + Document Manager',
     subtitle: 'Upload PDFs and chat with them, with full document lifecycle',
@@ -216,7 +220,7 @@ export const projects = [
   },
   {
     id: 'optivortium',
-    cover: '/projects/optivortium.webp',
+    coverWidths: UHD,
     coverAlt: 'Optivortium Alliance cover: live virtual try-on with facial landmarks, frame suggestions and 87% face-shape accuracy',
     title: 'Optivortium Alliance',
     subtitle: 'AI eyewear platform · final year project',
@@ -229,7 +233,7 @@ export const projects = [
   },
   {
     id: 'ppc-rag',
-    cover: '/projects/ppc-rag.webp',
+    coverWidths: UHD,
     coverAlt: 'Pakistan Penal Code Legal RAG cover: a legal research assistant that answers questions with cited PPC sections',
     title: 'Pakistan Penal Code Legal RAG',
     subtitle: 'Legal assistant grounded in PPC 1860',
@@ -242,7 +246,7 @@ export const projects = [
   },
   {
     id: 'self-learning-agent',
-    cover: '/projects/self-learning-agent.webp',
+    coverWidths: UHD,
     coverAlt: 'Self-Learning Coding Agent cover: HumanEval pass@1 rises from 62% to 74% with persistent memory',
     title: 'Self-Learning Coding Agent',
     subtitle: 'Autonomous agent that learns from its own failures',

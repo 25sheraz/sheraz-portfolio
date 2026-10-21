@@ -24,6 +24,12 @@ export const ICONS = {
 
 export const catLabel = (id) => projectCategories.find((c) => c.id === id)?.label ?? id;
 
+// Covers are saved at several widths; the browser downloads the smallest one that is still
+// sharp at the size it is shown on this screen.
+const coverUrl = (p, w) => `/projects/${p.id}-${w}.webp`;
+const coverSrcset = (p) => p.coverWidths.map((w) => `${coverUrl(p, w)} ${w}w`).join(', ');
+const CARD_SIZES = '(min-width: 1180px) 380px, (min-width: 760px) 50vw, 100vw';
+
 function set(id, html) {
   const el = document.getElementById(id);
   if (el) el.innerHTML = html;
@@ -100,16 +106,16 @@ function projectHTML(p, i) {
         .map((l) => `<a class="link-arrow" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ${ICONS.arrow}</a>`)
         .join('')}</div>`
     : '';
-  const cover = p.cover
+  const cover = p.coverWidths
     ? `<figure class="project__cover">
         <button class="project__zoom" type="button" data-zoom="${i}" aria-label="View the ${esc(p.title)} picture full size">
-          <img src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}" width="1448" height="1086" loading="lazy" decoding="async">
+          <img src="${coverUrl(p, p.coverWidths[0])}" srcset="${coverSrcset(p)}" sizes="${CARD_SIZES}" alt="${esc(p.coverAlt || p.title)}" width="1448" height="1086" loading="lazy" decoding="async">
           <span class="project__zoom-hint" aria-hidden="true">${ICONS.expand}<span>View</span></span>
         </button>
       </figure>`
     : '';
   return `
-    <article class="card project${p.featured ? ' is-featured' : ''}${p.cover ? ' has-cover' : ''}" data-category="${esc(p.category)}" data-project="${i}" data-reveal tabindex="0">
+    <article class="card project${p.featured ? ' is-featured' : ''}${p.coverWidths ? ' has-cover' : ''}" data-category="${esc(p.category)}" data-project="${i}" data-reveal tabindex="0">
       ${cover}
       <div class="project__body">
         <div class="project__top">

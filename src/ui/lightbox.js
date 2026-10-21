@@ -2,7 +2,9 @@ import { projects } from '../data/cv.js';
 import { ICONS, catLabel } from '../sections/render.js';
 
 const EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
+const SIZES = '(min-width: 1220px) 1120px, 92vw'; // how wide the viewer shows a cover
 const pad2 = (n) => String(n).padStart(2, '0');
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // Full-size viewer for the project covers. A clicked cover grows out of its card into an overlay;
 // the arrows, arrow keys or a swipe step through the projects the current filter shows.
@@ -60,10 +62,38 @@ export function initLightbox(device) {
 
   const current = () => list[pos];
   const projectAt = (btn) => projects[Number(btn.dataset.zoom)];
-  const load = (src) => {
-    img.src = src;
-    return img.decode().catch(() => {});
+
+  // Download (once) the copy of a cover that is sharp at the viewer's size on this screen.
+  const fetched = new WeakMap();
+  const warm = (btn) => {
+    if (!fetched.has(btn)) {
+      const im = new Image();
+      im.sizes = SIZES;
+      im.srcset = btn.querySelector('img').srcset;
+      fetched.set(btn, im.decode().then(() => true, () => false));
+    }
+    return fetched.get(btn);
   };
+  const showFull = (btn) => {
+    img.sizes = SIZES;
+    img.srcset = btn.querySelector('img').srcset;
+  };
+
+  // Show the sharp copy if it is ready (or arrives within a moment). Otherwise the card's copy,
+  // already downloaded, stands in and the sharp one swaps in as soon as it lands.
+  async function load(btn) {
+    const card = btn.querySelector('img');
+    const full = warm(btn);
+    const ready = await Promise.race([full, wait(150).then(() => false)]);
+    if (ready || !card.currentSrc) {
+      showFull(btn);
+    } else {
+      img.removeAttribute('srcset');
+      img.src = card.currentSrc;
+      full.then((ok) => ok && current() === btn && showFull(btn));
+    }
+    await img.decode().catch(() => {});
+  }
 
   function fill() {
     const p = projectAt(current());
@@ -89,11 +119,11 @@ export function initLightbox(device) {
     steps.forEach((b) => (b.hidden = list.length < 2));
   }
 
-  // Warm the cache for the neighbours so stepping is instant.
+  // Fetch the neighbours too so stepping shows them sharp straight away.
   function preload() {
     [-1, 1].forEach((d) => {
       const btn = list[(pos + d + list.length) % list.length];
-      if (btn) new Image().src = projectAt(btn).cover;
+      if (btn) warm(btn);
     });
   }
 
@@ -112,7 +142,7 @@ export function initLightbox(device) {
     list = Array.from(grid.querySelectorAll('.project:not(.is-hidden) .project__zoom'));
     pos = Math.max(0, list.indexOf(btn));
     fill();
-    await load(projectAt(btn).cover);
+    await load(btn);
     const from = btn.getBoundingClientRect();
     document.documentElement.classList.add('lightbox-open');
     root.hidden = false;
@@ -156,7 +186,7 @@ export function initLightbox(device) {
     pos = (pos + dir + list.length) % list.length;
     current().classList.add('is-lifted');
     fill();
-    await load(projectAt(current()).cover);
+    await load(current());
     if (motion) await Promise.all(parts.map((el) => el.animate([enter, rest], { duration: 320, easing: EASE, fill: 'forwards' }).finished));
     parts.forEach((el) => el.getAnimations().forEach((a) => a.cancel()));
     preload();
@@ -182,6 +212,11 @@ export function initLightbox(device) {
   grid.addEventListener('click', (e) => {
     const btn = e.target.closest('.project__zoom');
     if (btn) run(() => open(btn));
+  });
+  // Pointing at a cover usually comes a moment before clicking it: start the download then.
+  grid.addEventListener('pointerover', (e) => {
+    const btn = e.target.closest?.('.project__zoom');
+    if (btn) warm(btn);
   });
   root.addEventListener('click', (e) => {
     if (e.target.closest('[data-close]')) run(close);
