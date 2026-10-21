@@ -97,7 +97,7 @@ function projectHTML(p, i) {
         .join('')}</div>`
     : '';
   const cover = p.cover
-    ? `<figure class="project__cover"><img src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}" width="1200" height="900" loading="lazy" decoding="async"></figure>`
+    ? `<figure class="project__cover"><img src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}" width="1448" height="1086" loading="lazy" decoding="async"></figure>`
     : '';
   return `
     <article class="card project${p.featured ? ' is-featured' : ''}${p.cover ? ' has-cover' : ''}" data-category="${esc(p.category)}" data-project="${i}" data-reveal tabindex="0">
