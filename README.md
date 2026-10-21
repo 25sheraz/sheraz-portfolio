@@ -1,5 +1,9 @@
 # Sheraz Ahmad · Interactive 3D Portfolio
 
+**Live site:** https://sheraz-portfolio-beige.vercel.app
+
+![Portfolio hero: "I build AI systems that run real businesses" beside the WebGL agent graph](docs/screenshot.jpg)
+
 A single-page portfolio with a WebGL "agent graph" that reshapes itself as you scroll.
 
 ## Run it
